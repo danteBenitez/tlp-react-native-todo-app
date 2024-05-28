@@ -1,8 +1,14 @@
 import { View } from "react-native";
+import { ComponentProps } from "react";
 import { Avatar } from "react-native-paper";
 import { ScaledSheet } from "react-native-size-matters";
 
-export default function IconHeader(props: { icon: string, size?: number }) {
+type IconHeaderProps = {
+  icon: string;
+  size?: number;
+} & ComponentProps<typeof Avatar.Icon>;
+
+export default function IconHeader(props: IconHeaderProps) {
   return (
     <View style={style.header}>
       <Avatar.Icon {...props}></Avatar.Icon>

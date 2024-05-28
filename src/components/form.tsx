@@ -10,6 +10,7 @@ export default function Form(props: { children: ReactNode }) {
 
 const style = ScaledSheet.create({
     form: {
+        width: '100%',
         padding: '3@s'
     }
 });

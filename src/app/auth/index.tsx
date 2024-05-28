@@ -1,61 +1,94 @@
 import Form from "@/components/form";
 import IconHeader from "@/components/icon-header";
 import Input from "@/components/input";
-import { Link, Stack } from "expo-router";
-import { ImageBackground, View } from "react-native";
-import { Avatar, Button, Text, TextInput, useTheme } from "react-native-paper";
+import { useKeyboard } from "@/hooks/use-keyboard";
+import { Link } from "expo-router";
+import { useEffect, useState } from "react";
+import { ImageBackground, KeyboardAvoidingView, ScrollView, View } from "react-native";
+import { Button, Text, useTheme } from "react-native-paper";
+import Animated, { useAnimatedKeyboard, useAnimatedStyle } from "react-native-reanimated";
 import { ScaledSheet } from "react-native-size-matters";
-
-const image = { uri: '../../../assets/images/splash.png' }
 
 export default function AuthIndex() {
   const theme = useTheme();
+  const keyboard = useAnimatedKeyboard();
+  const translateStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: keyboard.height.value }],
+    };
+  });
   return (
     <>
       <View style={style.container}>
-        <ImageBackground source={require("../../../assets/images/dragon-scales.png")} imageStyle={style.image} resizeMode="cover">
-          <View style={style.card}>
-            <IconHeader icon="pencil" size={120} />
-            <View style={style.heading}>
-              <Text
-                variant="headlineLarge"
-                style={{
-                  fontWeight: 800,
-                }}
-              >
-                Inicio de sesión
-              </Text>
-            </View>
-            <Form>
-              <View style={style.subheading}>
-                <Text variant="bodyMedium">¿Aún no estás registrado?</Text>
-                <Link
-                  href={{
-                    pathname: "/auth/sign-up",
+        <ImageBackground
+          source={require("../../../assets/images/dragon-scales.png")}
+          style={style.image}
+          resizeMode="cover"
+        >
+          <Animated.ScrollView style={{
+            width: '100%',
+          }} contentContainerStyle={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "stretch",
+            height: "100%",
+            width: "100%",
+          }}
+            automaticallyAdjustKeyboardInsets={true}
+          >
+            <IconHeader icon="pencil" size={200} />
+            /[A-Z]+[a-z]+|[a-z]+[A-Z]/
+            <View
+              style={[
+                style.card,
+                { backgroundColor: theme.colors.background },
+              ]}
+            >
+              <View style={[style.heading]}>
+                <Text
+                  variant="headlineLarge"
+                  style={{
+                    fontWeight: 800,
                   }}
                 >
-                  <Text
-                    style={{
-                      color: theme.colors.primary,
+                  Inicio de sesión
+                </Text>
+              </View>
+              <Form>
+                <View style={style.subheading}>
+                  <Text variant="bodyMedium">¿Aún no estás registrado?</Text>
+                  <Link
+                    href={{
+                      pathname: "/auth/sign-up",
                     }}
                   >
-                    Regístrate
-                  </Text>
-                </Link>
-              </View>
-              <View style={style.fieldContainer}>
-                <View>
-                  <Input label="Usuario" />
+                    <Text
+                      style={{
+                        color: theme.colors.primary,
+                      }}
+                    >
+                      Regístrate
+                    </Text>
+                  </Link>
                 </View>
-                <View>
-                  <Input label="Contraseña" />
+                <View style={style.fieldContainer}>
+                  <Input mode="outlined" label="Usuario" />
+                  <Input mode="outlined" label="Contraseña" />
+                  <Button
+                    mode="contained"
+                    style={{
+                      paddingHorizontal: 10,
+                      paddingVertical: 3,
+                      width: "100%",
+                      backgroundColor: theme.colors.primary,
+                    }}
+                  >
+                    Iniciar sesión
+                  </Button>
                 </View>
-                <View>
-                  <Button mode="contained">Iniciar sesión</Button>
-                </View>
-              </View>
-            </Form>
-          </View>
+              </Form>
+            </View>
+          </Animated.ScrollView>
         </ImageBackground>
       </View>
     </>
@@ -64,22 +97,23 @@ export default function AuthIndex() {
 
 const style = ScaledSheet.create({
   container: {
+    position: "relative",
     height: "100%",
-    borderWidth: 1,
-    borderColor: 'red',
-    justifyContent: "center",
   },
   image: {
-    justifyContent: 'center',
+    justifyContent: "center",
     alignItems: "center",
-    height: '300%',
-    borderWidth: 1,
-    borderColor: 'orangered',
+    height: "100%",
   },
   card: {
     paddingVertical: "30@s",
-    marginHorizontal: "10@s",
-    borderRadius: 20,
+    // width: "95%",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "70%",
+    position: "relative",
   },
   subheading: {
     flexDirection: "row",
@@ -87,12 +121,14 @@ const style = ScaledSheet.create({
     alignItems: "center",
     gap: "4@s",
     textDecorationStyle: "solid",
+    marginBottom: "20@s",
   },
   heading: {
     alignItems: "center",
+    marginBottom: "20@s",
   },
   fieldContainer: {
-    padding: "20@s",
+    padding: "28@s",
     gap: "20@s",
   },
 });
