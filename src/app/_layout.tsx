@@ -10,6 +10,7 @@ import {
 } from "@react-navigation/native";
 import { MD3DarkTheme, MD3LightTheme, PaperProvider, adaptNavigationTheme } from "react-native-paper";
 import { useColorScheme } from "react-native";
+import { lightTheme, darkTheme } from "@/constants/theme";
 import RootStack from "@/components/root";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -19,6 +20,23 @@ const { LightTheme, DarkTheme } = adaptNavigationTheme({
   reactNavigationLight: NavigationDefaultTheme,
   reactNavigationDark: NavigationDarkTheme,
 });
+
+const CombinedDefaultTheme = {
+  ...LightTheme,
+  ...lightTheme,
+  colors: {
+    ...LightTheme.colors,
+    ...lightTheme.colors,
+  },
+};
+const CombinedDarkTheme = {
+  ...DarkTheme,
+  ...darkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    ...darkTheme.colors,
+  },
+};
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -35,9 +53,9 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-  const theme = colorScheme == "light" ? LightTheme : DarkTheme;
+  const theme = colorScheme == "light" ? CombinedDefaultTheme : CombinedDarkTheme;
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
       <ThemeProvider value={theme}>
         <RootStack />
       </ThemeProvider>
