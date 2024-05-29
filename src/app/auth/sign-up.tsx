@@ -16,7 +16,6 @@ export default function SignUp() {
     },
     resolver: zodResolver(signUpSchema)
   });
-  console.log(formState.errors);
   return (
     <Form
       heading={
@@ -51,17 +50,10 @@ export default function SignUp() {
     >
         <InputController
           name="username"
-          controllerProps={{
-            rules: {
-              required: true,
-              maxLength: 20,
-            },
-          }}
           control={control}
           inputProps={{
             mode: "outlined",
             label: "Usuario",
-            error: "Este campo es requerido"
           }} 
         />
         <InputController
@@ -81,6 +73,7 @@ export default function SignUp() {
           inputProps={{
             mode: "outlined",
             label: "Contraseña",
+            secureTextEntry: true,
           }} 
         />
       <Button
