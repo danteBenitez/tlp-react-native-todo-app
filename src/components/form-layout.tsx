@@ -5,16 +5,12 @@ import { ImageBackground, KeyboardAvoidingView, View } from "react-native";
 import { ReactNode } from "react";
 import { ScaledSheet } from "react-native-size-matters";
 import { useTheme } from "react-native-paper";
+import WithImageBackground from "./with-image-background";
 
 export default function FormLayout(props: { children: ReactNode }) {
   const theme = useTheme();
   return (
-    <View style={style.container}>
-      <ImageBackground
-        source={require("../../assets/images/background-flipped.jpg")}
-        style={style.image}
-        resizeMode="cover"
-      >
+    <WithImageBackground>
         <View
           style={{
             display: "flex",
@@ -40,8 +36,7 @@ export default function FormLayout(props: { children: ReactNode }) {
             {props.children}
           </KeyboardAvoidingView>
         </View>
-      </ImageBackground>
-    </View>
+    </WithImageBackground>
   );
 }
 
@@ -50,15 +45,7 @@ const style = ScaledSheet.create({
     width: "100%",
     padding: "3@s",
   },
-  container: {
-    position: "relative",
-    height: "100%",
-  },
-  image: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-  },
+  
   card: {
     paddingVertical: "30@s",
     width: "100%",
