@@ -1,14 +1,10 @@
-import { Stack } from "expo-router";
+import FormLayout from "@/components/form-layout";
+import { Slot } from "expo-router";
 
 export default function AuthLayout() {
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack>
+    <FormLayout>
+      <Slot />
+    </FormLayout>
   );
 }

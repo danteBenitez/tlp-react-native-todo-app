@@ -6,7 +6,7 @@ import { TextInput, useTheme } from "react-native-paper"
 export default function Input(props: ComponentProps<typeof TextInput>) {
     const theme = useTheme();
     return <TextInput style={{
-        backgroundColor: theme.colors.secondaryContainer,
+        backgroundColor: theme.colors.inverseOnSurface,
         minHeight: 20
     }} {...props} />;
 }
