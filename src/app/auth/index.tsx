@@ -4,20 +4,14 @@ import Input from "@/components/input";
 import { useKeyboard } from "@/hooks/use-keyboard";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "expo-router";
-import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { ImageBackground, KeyboardAvoidingView, View } from "react-native";
+import { useForm } from "react-hook-form";
 import { Button, Text, useTheme } from "react-native-paper";
-import Animated, {
-  useAnimatedKeyboard,
-  useAnimatedStyle,
-} from "react-native-reanimated";
-import { ScaledSheet } from "react-native-size-matters";
 import { loginSchema } from "./_auth.schema";
+import InputController from "@/components/input-controller";
 
 export default function AuthIndex() {
   const theme = useTheme();
-  const { control } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       username: "",
       password: "",
@@ -58,20 +52,22 @@ export default function AuthIndex() {
           </>
         }
       >
-        <Controller
+        <InputController
           name="username"
           control={control}
-          render={({ field, formState: { errors } }) => {
-            return <Input mode="outlined" label="Usuario" {...field} error={errors.username?.message} />
-          }
-          }
+          inputProps={{
+            mode: "outlined",
+            label: "Usuario",
+          }} 
         />
-        <Controller
+        <InputController
           name="password"
           control={control}
-          render={({ field, formState: { errors } }) => 
-            <Input mode="outlined" label="Contraseña" {...field} error={errors.password?.message} />
-          }
+          inputProps={{
+            mode: "outlined",
+            label: "Contraseña",
+            secureTextEntry: true,
+          }} 
         />
         <Button
           mode="contained"
@@ -82,6 +78,9 @@ export default function AuthIndex() {
             width: "100%",
             backgroundColor: theme.colors.primary,
           }}
+          onPress={handleSubmit(fields => {
+            console.log(fields);
+          })}
         >
           Iniciar sesión
         </Button>
