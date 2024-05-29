@@ -12,6 +12,7 @@ import { MD3DarkTheme, MD3LightTheme, PaperProvider, adaptNavigationTheme } from
 import { useColorScheme } from "react-native";
 import { lightTheme, darkTheme } from "@/constants/theme";
 import RootStack from "@/components/root";
+import { AuthContext, AuthProvider } from "@/components/auth/provider";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -55,10 +56,12 @@ export default function RootLayout() {
   }
   const theme = colorScheme == "light" ? CombinedDefaultTheme : CombinedDarkTheme;
   return (
-    <PaperProvider theme={theme}>
-      <ThemeProvider value={theme}>
-        <RootStack />
-      </ThemeProvider>
-    </PaperProvider>
+    <AuthProvider>
+      <PaperProvider theme={theme}>
+        <ThemeProvider value={theme}>
+          <RootStack />
+        </ThemeProvider>
+      </PaperProvider>
+    </AuthProvider>
   );
 }
