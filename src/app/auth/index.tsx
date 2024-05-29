@@ -2,8 +2,10 @@ import Form from "@/components/form";
 import IconHeader from "@/components/icon-header";
 import Input from "@/components/input";
 import { useKeyboard } from "@/hooks/use-keyboard";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { ImageBackground, KeyboardAvoidingView, View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import Animated, {
@@ -11,15 +13,18 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 import { ScaledSheet } from "react-native-size-matters";
+import { loginSchema } from "./_auth.schema";
 
 export default function AuthIndex() {
   const theme = useTheme();
-  const keyboard = useAnimatedKeyboard();
-  const translateStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: keyboard.height.value }],
-    };
+  const { control } = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+    resolver: zodResolver(loginSchema)
   });
+
   return (
     <>
       <Form
@@ -53,8 +58,21 @@ export default function AuthIndex() {
           </>
         }
       >
-        <Input mode="outlined" label="Usuario" />
-        <Input mode="outlined" label="Contraseña" />
+        <Controller
+          name="username"
+          control={control}
+          render={({ field, formState: { errors } }) => {
+            return <Input mode="outlined" label="Usuario" {...field} error={errors.username?.message} />
+          }
+          }
+        />
+        <Controller
+          name="password"
+          control={control}
+          render={({ field, formState: { errors } }) => 
+            <Input mode="outlined" label="Contraseña" {...field} error={errors.password?.message} />
+          }
+        />
         <Button
           mode="contained"
           style={{
@@ -72,4 +90,3 @@ export default function AuthIndex() {
   );
 }
 
-const style = ScaledSheet.create({});

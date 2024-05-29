@@ -42,6 +42,6 @@ const style = ScaledSheet.create({
   fieldContainer: {
     width: "100%",
     padding: "30@s",
-    gap: "20@s",
+    gap: "15@s",
   },
 });

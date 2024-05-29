@@ -1,10 +1,22 @@
 import Form from "@/components/form";
-import Input from "@/components/input";
 import { Link } from "expo-router";
 import { Button, Text, useTheme } from "react-native-paper";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signUpSchema } from "./_auth.schema";
+import InputController from "@/components/input-controller";
 
 export default function SignUp() {
   const theme = useTheme();
+  const { control, handleSubmit, formState } = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+      email: ""
+    },
+    resolver: zodResolver(signUpSchema)
+  });
+  console.log(formState.errors);
   return (
     <Form
       heading={
@@ -37,9 +49,40 @@ export default function SignUp() {
         </>
       }
     >
-      <Input mode="outlined" label="Usuario" />
-      <Input mode="outlined" label="Correo electrónico" />
-      <Input mode="outlined" label="Contraseña" />
+        <InputController
+          name="username"
+          controllerProps={{
+            rules: {
+              required: true,
+              maxLength: 20,
+            },
+          }}
+          control={control}
+          inputProps={{
+            mode: "outlined",
+            label: "Usuario",
+            error: "Este campo es requerido"
+          }} 
+        />
+        <InputController
+          name="email"
+          controllerProps={{
+          }}
+          control={control}
+          inputProps={{
+            mode: "outlined",
+            label: "Correo electrónico",
+          }} 
+        />
+
+        <InputController
+          name="password"
+          control={control}
+          inputProps={{
+            mode: "outlined",
+            label: "Contraseña",
+          }} 
+        />
       <Button
         mode="contained"
         style={{
@@ -49,6 +92,9 @@ export default function SignUp() {
           width: "100%",
           backgroundColor: theme.colors.primary,
         }}
+        onPress={handleSubmit(fields => {
+          console.log(fields);
+        })}
       >
         Registrarse
       </Button>

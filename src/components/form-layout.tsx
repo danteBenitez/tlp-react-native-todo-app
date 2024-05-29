@@ -15,13 +15,8 @@ export default function FormLayout(props: { children: ReactNode }) {
         style={style.image}
         resizeMode="cover"
       >
-        <KeyboardAvoidingView
-          behavior="position"
+        <View
           style={{
-            width: "100%",
-            height: "100%",
-          }}
-          contentContainerStyle={{
             display: "flex",
             justifyContent: "flex-end",
             alignItems: "stretch",
@@ -29,20 +24,22 @@ export default function FormLayout(props: { children: ReactNode }) {
             width: "100%",
           }}
         >
-          <View
+          <KeyboardAvoidingView
+            behavior="padding"
             style={[style.card, { backgroundColor: theme.colors.background }]}
           >
             <View
               style={{
-                position: "absolute",
-                top: -100,
+                height: 50,
+                position: "relative",
+                bottom: 160,
               }}
             >
               <IconHeader icon="pencil" size={200} />
             </View>
             {props.children}
-          </View>
-        </KeyboardAvoidingView>
+          </KeyboardAvoidingView>
+        </View>
       </ImageBackground>
     </View>
   );
@@ -69,7 +66,7 @@ const style = ScaledSheet.create({
     borderTopRightRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    height: "80%",
+    minHeight: "80%",
     position: "relative",
   },
 });
