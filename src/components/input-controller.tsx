@@ -17,7 +17,6 @@ export default function InputController<TField extends FieldValues>(props: Input
       name={props.name}
       control={props.control as Control<TField>}
       render={({ field: { onChange }, fieldState: { error } }) => {
-        console.log(error);
         return (
           <Input
             mode="outlined"
