@@ -1,10 +1,11 @@
 import Form from "@/components/form";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Button, Text, useTheme } from "react-native-paper";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signUpSchema } from "./_auth.schema";
 import InputController from "@/components/input-controller";
+import { signUp } from "@/services/auth";
 
 export default function SignUp() {
   const theme = useTheme();
@@ -86,7 +87,8 @@ export default function SignUp() {
           backgroundColor: theme.colors.primary,
         }}
         onPress={handleSubmit(fields => {
-          console.log(fields);
+          signUp(fields);
+          router.navigate('/(app)');
         })}
       >
         Registrarse
