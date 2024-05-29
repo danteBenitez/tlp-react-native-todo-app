@@ -1,13 +1,11 @@
 import Form from "@/components/form";
-import IconHeader from "@/components/icon-header";
-import Input from "@/components/input";
-import { useKeyboard } from "@/hooks/use-keyboard";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { useForm } from "react-hook-form";
 import { Button, Text, useTheme } from "react-native-paper";
 import { loginSchema } from "./_auth.schema";
 import InputController from "@/components/input-controller";
+import { useAuth } from "@/hooks/use-auth";
 
 export default function AuthIndex() {
   const theme = useTheme();
@@ -18,6 +16,7 @@ export default function AuthIndex() {
     },
     resolver: zodResolver(loginSchema)
   });
+  const { signIn } = useAuth()!;
 
   return (
     <>
@@ -79,7 +78,8 @@ export default function AuthIndex() {
             backgroundColor: theme.colors.primary,
           }}
           onPress={handleSubmit(fields => {
-            console.log(fields);
+            signIn(fields);
+            router.navigate('/(app)');
           })}
         >
           Iniciar sesión
