@@ -32,16 +32,10 @@ export default function TodoList() {
     },
   ];
   return (
-    <MarginLayout>
-      <Text
-        variant="titleLarge"
-        style={[baseStyles.baseText, baseStyles.heading]}
-      >
-        Tus tareas
-      </Text>
       <View
         style={{
           paddingHorizontal: 5,
+          paddingVertical: 0,
         }}
       >
         <List.Section>
@@ -56,7 +50,7 @@ export default function TodoList() {
                     baseStyles.subheading,
                     {
                       fontWeight: 800,
-                      marginTop: 20,
+                      marginTop: 0,
                     },
                   ]}
                 >
@@ -77,7 +71,6 @@ export default function TodoList() {
           ></SectionList>
         </List.Section>
       </View>
-    </MarginLayout>
   );
 }
 

@@ -26,7 +26,7 @@ export function Header(props: BottomTabHeaderProps & { theme: MD3Theme }) {
             {...props.navigation}
           />
         )}
-        <Appbar.Content title={props.options.title} />
+        <Appbar.Content title={props.options.title ?? ""} titleStyle={{ fontWeight: 800 }} />
         <Appbar.Action
           icon="cog"
           onPress={() => {
