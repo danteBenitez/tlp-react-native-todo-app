@@ -5,6 +5,11 @@ const USER_LIST: AuthData[] = [
         username: 'admin',
         email: 'admin@example.com',
         password: 'Admin@'
+    },
+    {
+        username: 'Dante',
+        email: 'benitezdante123@gmail',
+        password: 'Dante@'
     }
 ];
 
