@@ -1,3 +1,6 @@
+import { baseStyles } from "@/components/base-styles";
+import TaskReminder from "@/components/tasks/task.reminder";
+import TaskReminderList from "@/components/tasks/task.reminder-list";
 import WithImageBackground from "@/components/with-image-background";
 import { useAuth } from "@/hooks/use-auth";
 import { View } from "react-native";
@@ -16,9 +19,9 @@ export default function WelcomeMessage() {
     >
       <View
         style={{
-          height: "90%",
+          height: "97%",
           width: "100%",
-          marginTop: 30,
+          marginTop: 15,
           backgroundColor: theme.colors.surface,
           paddingTop: 20,
           paddingVertical: 20,
@@ -27,45 +30,18 @@ export default function WelcomeMessage() {
         }}
       >
         <View>
-          <Text variant="titleLarge" style={[style.baseText, style.heading]}>
+          <Text variant="titleLarge" style={[baseStyles.baseText, baseStyles.heading]}>
             ¡Bienvenido
           </Text>
-          <Text variant="headlineLarge" style={[style.baseText, style.heading]}>
+          <Text variant="headlineLarge" style={[baseStyles.baseText, baseStyles.heading]}>
             {user?.username ?? "Desconocido"}!
           </Text>
-          <Text variant="bodyLarge" style={[style.baseText, style.subheading]}>
+          <Text variant="bodyLarge" style={[baseStyles.baseText, baseStyles.subheading]}>
             ¿Qué tienes para hacer hoy?
           </Text>
         </View>
         <View>
-          <View style={[style.hero, {
-            backgroundColor: theme.colors.primary,
-          }]}>
-            <View style={{
-              padding: 5,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}>
-              <Text variant="bodyLarge" style={[style.baseText, style.heroText, {
-                color: theme.colors.onPrimary,
-              }]}>
-                Hola
-              </Text>
-              <View style={{
-                padding: 20,
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: 20
-              }}>
-                <Text variant="bodyMedium" style={{
-                  color: theme.colors.onPrimary,
-                }}>{new Date().toDateString()}</Text>
-                <Icon source="clock-outline" size={30} color={theme.colors.onPrimary} />
-              </View>
-            </View>
-          </View>
+          <TaskReminderList />
         </View>
       </View>
     </View>
@@ -73,20 +49,6 @@ export default function WelcomeMessage() {
 }
 
 const style = ScaledSheet.create({
-  baseText: {
-    height: "auto",
-    paddingTop: 20,
-    paddingHorizontal: 20,
-    lineHeight: 20,
-  },
-  heading: {
-    fontWeight: 800,
-    fontSize: 30,
-  },
-  subheading: {
-    fontWeight: 400,
-    fontSize: 20,
-  },
   hero: {
     height: 200,
     marginTop: 20,
@@ -97,5 +59,5 @@ const style = ScaledSheet.create({
   heroText: {
     fontWeight: 800,
     fontSize: 30,
-  }
+  },
 });
