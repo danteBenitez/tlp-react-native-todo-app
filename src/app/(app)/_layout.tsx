@@ -11,9 +11,10 @@ export function Header(props: BottomTabHeaderProps) {
     <View>
       <Appbar.Header
         style={{
-          backgroundColor: theme.colors.background,
-          borderBottomColor: theme.colors.onTertiary,
-          borderBottomWidth: 3,
+          backgroundColor: theme.colors.backdrop,
+          borderBottomColor: theme.colors.elevation.level3,
+          borderBottomWidth: 1,
+          shadowColor: theme.colors.elevation.level3,
         }}
       >
         {router.canGoBack() && (
@@ -24,7 +25,13 @@ export function Header(props: BottomTabHeaderProps) {
             {...props.navigation}
           />
         )}
-        <Appbar.Content title="Home" />
+        <Appbar.Content title={props.options.title} />
+        <Appbar.Action
+          icon="cog"
+          onPress={() => {
+            router.navigate("menu");
+          }}
+        />
       </Appbar.Header>
     </View>
   );
@@ -42,13 +49,19 @@ export default function Layout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Bienvenida",
+          title: "",
           tabBarLabel(props) {
-              return <Text style={{
-                marginBottom: 12
-              }}>
-                asdasdasd
-              </Text>
+            return (
+              <View>
+                <Text
+                  style={{
+                    marginBottom: 12,
+                  }}
+                >
+                  Inicio
+                </Text>
+              </View>
+            );
           },
           tabBarIcon: ({ focused, size }) => (
             <Icon
@@ -67,4 +80,9 @@ const style = ScaledSheet.create({
   tabBar: {
     minHeight: "8%",
   },
+  barLabel: {},
+  barLabelActive: {
+    backgroundColor: "blue",
+    borderBottomWidth: 3,
+  }
 });
