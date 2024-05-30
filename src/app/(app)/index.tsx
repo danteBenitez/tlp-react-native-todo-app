@@ -1,4 +1,5 @@
 import { baseStyles } from "@/components/base-styles";
+import MarginLayout from "@/components/tasks/margin-layout";
 import TaskReminder from "@/components/tasks/task.reminder";
 import TaskReminderList from "@/components/tasks/task.reminder-list";
 import WithImageBackground from "@/components/with-image-background";
@@ -8,27 +9,9 @@ import { Icon, Text, useTheme } from "react-native-paper";
 import { ScaledSheet } from "react-native-size-matters";
 
 export default function WelcomeMessage() {
-  const theme = useTheme();
   const { user } = useAuth();
   return (
-    <View
-      style={{
-        height: "100%",
-        width: "100%",
-      }}
-    >
-      <View
-        style={{
-          height: "97%",
-          width: "100%",
-          marginTop: 15,
-          backgroundColor: theme.colors.surface,
-          paddingTop: 20,
-          paddingVertical: 20,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-        }}
-      >
+    <MarginLayout>
         <View>
           <Text variant="titleLarge" style={[baseStyles.baseText, baseStyles.heading]}>
             ¡Bienvenido
@@ -43,8 +26,7 @@ export default function WelcomeMessage() {
         <View>
           <TaskReminderList />
         </View>
-      </View>
-    </View>
+    </MarginLayout>
   );
 }
 
