@@ -88,7 +88,7 @@ export default function SignUp() {
         }}
         onPress={handleSubmit(fields => {
           signUp(fields);
-          router.navigate('/(app)');
+          router.replace('/(app)');
         })}
       >
         Registrarse

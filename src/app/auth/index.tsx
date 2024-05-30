@@ -79,7 +79,7 @@ export default function AuthIndex() {
           }}
           onPress={handleSubmit(fields => {
             signIn(fields);
-            router.navigate('/(app)');
+            router.replace('/(app)');
           })}
         >
           Iniciar sesión
