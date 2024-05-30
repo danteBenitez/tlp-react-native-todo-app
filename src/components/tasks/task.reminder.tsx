@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Avatar, Button, Icon, Text, useTheme } from "react-native-paper";
+import { Avatar, Button, Icon, Text, TouchableRipple, useTheme } from "react-native-paper";
 import { ScaledSheet } from "react-native-size-matters";
 import { baseStyles } from "../base-styles";
 import { Task } from "@/interfaces/task";
@@ -14,7 +14,8 @@ export default function TaskReminder(props: {
     onPrimary: foregroundColor,
   } = theme.colors;
   return (
-    <View
+    <TouchableRipple
+      rippleColor={"red"}
       style={[
         style.hero,
         {
@@ -89,7 +90,7 @@ export default function TaskReminder(props: {
           <Button mode="elevated">Ver tarea</Button>
         </View>
       </View>
-    </View>
+    </TouchableRipple>
   );
 }
 

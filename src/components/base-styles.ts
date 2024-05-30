@@ -16,4 +16,9 @@ export const baseStyles = ScaledSheet.create({
         fontWeight: 400,
         fontSize: 20,
     },
+    listItem: {
+    },
+    listItemContent: {
+        padding: "10@s",
+    }
 })

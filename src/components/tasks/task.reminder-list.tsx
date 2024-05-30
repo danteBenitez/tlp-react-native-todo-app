@@ -1,32 +1,10 @@
 import { FlatList, ScrollView, View } from "react-native";
 import TaskReminder from "./task.reminder";
-import { Task } from "@/interfaces/task";
-import { Text, useTheme } from "react-native-paper";
+import { Text } from "react-native-paper";
+import { useTasks } from "@/hooks/use-tasks";
 
 export default function TaskReminderList() {
-  const tasks: Task[] = [
-    {
-      id: 1,
-      title: "Comprar pan",
-      description: "Panadería la flor de la vida",
-      author: "Yo",
-      date: new Date(),
-    },
-    {
-      id: 2,
-      title: "Llamar a mamá",
-      description: "Recordarle que le quiero",
-      author: "Yo",
-      date: new Date(),
-    },
-    {
-      id: 3,
-      title: "Reunión con el jefe",
-      description: "Presentar informe de ventas",
-      author: "Yo",
-      date: new Date(),
-    },
-  ];
+  const { tasks }= useTasks();
   return (
     <View>
       <TaskReminder
