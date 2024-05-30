@@ -12,7 +12,7 @@ export function Header(props: BottomTabHeaderProps & { theme: MD3Theme }) {
     <View>
       <Appbar.Header
         style={{
-          backgroundColor: theme.colors.backdrop,
+          backgroundColor: theme.colors.surface,
           borderBottomColor: theme.colors.elevation.level3,
           borderBottomWidth: 1,
           shadowColor: theme.colors.elevation.level3,

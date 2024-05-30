@@ -3,9 +3,7 @@ import MarginLayout from "@/components/tasks/margin-layout";
 import TaskReminder from "@/components/tasks/task.reminder";
 import { useTasks } from "@/hooks/use-tasks";
 import { Task } from "@/interfaces/task";
-import { useState } from "react";
-import { ScrollView, SectionList, View } from "react-native";
-import { FlatList } from "react-native";
+import { SectionList, View } from "react-native";
 import { List, Text, useTheme } from "react-native-paper";
 import { ScaledSheet } from "react-native-size-matters";
 
@@ -44,12 +42,12 @@ export default function TodoList() {
       <View
         style={{
           paddingHorizontal: 5,
-          marginBottom: 100,
         }}
       >
         <List.Section>
           <SectionList
             sections={sections}
+            contentContainerStyle={style.content}
             renderSectionHeader={({ section }) => (
               <>
                 <List.Subheader
@@ -112,5 +110,6 @@ function TodoListEmpty(props: { title: string }) {
 const style = ScaledSheet.create({
   content: {
     padding: "10@s",
+    paddingBottom: "90@s",
   },
 });
