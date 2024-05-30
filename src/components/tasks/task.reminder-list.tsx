@@ -27,7 +27,6 @@ export default function TaskReminderList() {
       date: new Date(),
     },
   ];
-  const theme = useTheme();
   return (
     <View>
       <TaskReminder
@@ -40,6 +39,7 @@ export default function TaskReminderList() {
           style={{
             fontWeight: "medium",
             marginTop: 20,
+            paddingHorizontal: 20,
           }}
         >
           Tareas recientes
