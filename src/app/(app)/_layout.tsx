@@ -41,7 +41,7 @@ export function Header(props: BottomTabHeaderProps & { theme: MD3Theme }) {
         <Appbar.Action
           icon="cog"
           onPress={() => {
-            router.navigate("menu");
+            router.navigate("/settings");
           }}
         />
       </Appbar.Header>
