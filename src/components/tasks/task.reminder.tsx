@@ -1,5 +1,12 @@
 import { View } from "react-native";
-import { Avatar, Button, Icon, Text, TouchableRipple, useTheme } from "react-native-paper";
+import {
+  Avatar,
+  Button,
+  Icon,
+  Text,
+  TouchableRipple,
+  useTheme,
+} from "react-native-paper";
 import { ScaledSheet } from "react-native-size-matters";
 import { baseStyles } from "../base-styles";
 import { Task } from "@/interfaces/task";
@@ -10,10 +17,7 @@ export default function TaskReminder(props: {
   task: Task;
 }) {
   const theme = useTheme();
-  const {
-    primary: backgroundColor,
-    onPrimary: foregroundColor,
-  } = theme.colors;
+  const { primary: backgroundColor, onPrimary: foregroundColor } = theme.colors;
   return (
     <TouchableRipple
       rippleColor={"red"}
@@ -51,14 +55,18 @@ export default function TaskReminder(props: {
                 {
                   color: foregroundColor,
                   fontSize: props.size == "big" ? 30 : 20,
-                  lineHeight: 30
+                  lineHeight: 30,
                 },
               ]}
             >
               {props.task.title}
             </Text>
             <View style={style.avatar}>
-              <Avatar.Icon icon="account" color={foregroundColor} size={props.size == "big" ? 50 : 40} />
+              <Avatar.Icon
+                icon="account"
+                color={foregroundColor}
+                size={props.size == "big" ? 50 : 40}
+              />
               <Text style={{ color: foregroundColor }}>
                 {props.task.author}
               </Text>
@@ -88,12 +96,19 @@ export default function TaskReminder(props: {
           }}
         >
           <DateWithIcon date={props.task.date} />
-          <Button mode="elevated" onPress={() => router.navigate({
-            pathname: "/tasks/[id]",
-            params: {
-              id: props.task.id
+          <Button
+            mode="elevated"
+            onPress={() =>
+              router.navigate({
+                pathname: "/tasks/[id]",
+                params: {
+                  id: props.task.id,
+                },
+              })
             }
-          })}>Ver tarea</Button>
+          >
+            Ver tarea
+          </Button>
         </View>
       </View>
     </TouchableRipple>
