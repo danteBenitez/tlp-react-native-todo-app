@@ -7,10 +7,8 @@ import {
   MD3Theme,
   Surface,
   Text,
-  TouchableRipple,
   useTheme,
 } from "react-native-paper";
-import { ReactNode } from "react";
 import { ScaledSheet } from "react-native-size-matters";
 import TaskContextProvider from "@/components/tasks/provider";
 
@@ -144,6 +142,9 @@ export default function Layout() {
             ),
           }}
         />
+        <Tabs.Screen name="tasks" options={{
+          href: null
+        }} />
       </Tabs>
     </TaskContextProvider>
   );
@@ -152,6 +153,7 @@ export default function Layout() {
 const style = ScaledSheet.create({
   tabBar: {
     minHeight: "8%",
+    zIndex: 1,
   },
   barLabel: {},
   barLabelActive: {
