@@ -17,6 +17,7 @@ type AuthContextValue = {
     user: User | null;
     signIn: (auth: Omit<AuthData, "email">) => Promise<void>;    
     signUp: (auth: AuthData) => Promise<void>;
+    logout: () => void;
 };
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
@@ -45,8 +46,13 @@ export function AuthProvider(props: { children: ReactNode }) {
         setUser(result);
     }
 
+    async function logout() {
+        setUser(null);
+    }
+
     return <AuthContext.Provider value={{
         user: user,
+        logout,
         isAuthenticated: !!user,
         signIn,
         signUp
