@@ -1,7 +1,15 @@
 import { Tabs, router, useRouter } from "expo-router";
 import { BottomTabHeaderProps } from "@react-navigation/bottom-tabs";
 import { View } from "react-native";
-import { Appbar, Icon, MD3Theme, Text, useTheme } from "react-native-paper";
+import {
+  Appbar,
+  Icon,
+  MD3Theme,
+  Surface,
+  Text,
+  TouchableRipple,
+  useTheme,
+} from "react-native-paper";
 import { ReactNode } from "react";
 import { ScaledSheet } from "react-native-size-matters";
 import TaskContextProvider from "@/components/tasks/provider";
@@ -26,7 +34,10 @@ export function Header(props: BottomTabHeaderProps & { theme: MD3Theme }) {
             {...props.navigation}
           />
         )}
-        <Appbar.Content title={props.options.title ?? ""} titleStyle={{ fontWeight: 800 }} />
+        <Appbar.Content
+          title={props.options.title ?? ""}
+          titleStyle={{ fontWeight: 800 }}
+        />
         <Appbar.Action
           icon="cog"
           onPress={() => {
@@ -74,6 +85,36 @@ export default function Layout() {
                 size={size}
                 theme={theme}
               />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="add-todo"
+          options={{
+            title: "",
+            tabBarHideOnKeyboard: true,
+            tabBarIcon: ({ size }) => (
+                <Surface
+                  elevation={4}
+                  style={{
+                    backgroundColor: theme.colors.primary,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: "auto",
+                    width: "50%",
+                    height: "120%",
+                    borderRadius: 100,
+                    zIndex: 100,
+                    marginBottom: 5,
+                  }}
+                >
+                  <Icon
+                    source={"plus"}
+                    color={theme.colors.onPrimary}
+                    size={size}
+                    theme={theme}
+                  />
+                </Surface>
             ),
           }}
         />
