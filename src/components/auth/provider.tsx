@@ -26,7 +26,6 @@ export function AuthProvider(props: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
 
     async function signIn(auth: Omit<AuthData, "email">) {
-        console.log("Sign in", auth);
         const result = await signInService({
             username: auth.username,
             password: auth.password
@@ -38,7 +37,6 @@ export function AuthProvider(props: { children: ReactNode }) {
     }
 
     async function signUp(auth: AuthData) {
-        console.log("Sign up", auth);
         const result = await signUpService(auth);
         if (!result) {
             throw new Error("Sign up failed");

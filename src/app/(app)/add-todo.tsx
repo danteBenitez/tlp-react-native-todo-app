@@ -31,7 +31,6 @@ export default function AddTodo() {
     },
     resolver: zodResolver(taskSchema),
   });
-  console.log(getValues("date"));
   const { addTask } = useTasks()!;
   const theme = useTheme();
   return (

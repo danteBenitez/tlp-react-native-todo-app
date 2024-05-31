@@ -12,9 +12,8 @@ import {
   adaptNavigationTheme,
 } from "react-native-paper";
 import { lightTheme, darkTheme } from "@/constants/theme";
-import { AuthContext, AuthProvider } from "@/components/auth/provider";
 import { usePreferences } from "@/hooks/use-preferences";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -43,9 +42,6 @@ const CombinedDarkTheme = {
 export default function RootStack() {
   const { preferences } = usePreferences();
   const theme = useMemo<typeof CombinedDarkTheme>(() => preferences.theme == "light" ? CombinedDefaultTheme : CombinedDarkTheme, [preferences]);
-  useEffect(() => {
-    console.log("Preferences changed...");
-  }, [preferences]);
 
   return (
     <PaperProvider theme={theme}>
