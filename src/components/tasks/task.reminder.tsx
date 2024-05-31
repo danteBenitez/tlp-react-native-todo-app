@@ -20,7 +20,6 @@ export default function TaskReminder(props: {
   const { primary: backgroundColor, onPrimary: foregroundColor } = theme.colors;
   return (
     <TouchableRipple
-      rippleColor={"red"}
       style={[
         style.hero,
         {
