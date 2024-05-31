@@ -14,6 +14,7 @@ import {
 import { lightTheme, darkTheme } from "@/constants/theme";
 import { usePreferences } from "@/hooks/use-preferences";
 import { useMemo } from "react";
+import TaskContextProvider from "./tasks/provider";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -41,20 +42,27 @@ const CombinedDarkTheme = {
 };
 export default function RootStack() {
   const { preferences } = usePreferences();
-  const theme = useMemo<typeof CombinedDarkTheme>(() => preferences.theme == "light" ? CombinedDefaultTheme : CombinedDarkTheme, [preferences]);
+  const theme = useMemo<typeof CombinedDarkTheme>(
+    () =>
+      preferences.theme == "light" ? CombinedDefaultTheme : CombinedDarkTheme,
+    [preferences]
+  );
 
   return (
     <PaperProvider theme={theme}>
       <ThemeProvider value={theme}>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="(app)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
+        <TaskContextProvider>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="(app)" options={{ headerShown: false }} />
+            <Stack.Screen name="tasks" options={{ presentation: "modal", headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </TaskContextProvider>
       </ThemeProvider>
     </PaperProvider>
   );
