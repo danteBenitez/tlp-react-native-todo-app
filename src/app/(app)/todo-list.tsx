@@ -1,10 +1,9 @@
 import { baseStyles } from "@/components/base-styles";
-import MarginLayout from "@/components/tasks/margin-layout";
 import TaskReminder from "@/components/tasks/task.reminder";
 import { useTasks } from "@/hooks/use-tasks";
 import { Task } from "@/interfaces/task";
 import { SectionList, View } from "react-native";
-import { List, Text, useTheme } from "react-native-paper";
+import { List, Text } from "react-native-paper";
 import { ScaledSheet } from "react-native-size-matters";
 
 export default function TodoList() {
