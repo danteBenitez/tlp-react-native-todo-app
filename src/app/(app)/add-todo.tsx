@@ -1,5 +1,4 @@
 import { baseStyles } from "@/components/base-styles";
-import FormLayout from "@/components/form-layout";
 import InputController from "@/components/input-controller";
 import MarginLayout from "@/components/tasks/margin-layout";
 import { taskSchema } from "@/components/tasks/schema";
@@ -13,7 +12,6 @@ import { useForm } from "react-hook-form";
 import { ScrollView, View } from "react-native";
 import { Button, List, Text, useTheme } from "react-native-paper";
 import {
-  DatePickerInput,
   DatePickerModal,
   es,
   registerTranslation,
