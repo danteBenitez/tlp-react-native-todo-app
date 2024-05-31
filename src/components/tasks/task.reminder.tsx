@@ -3,6 +3,7 @@ import { Avatar, Button, Icon, Text, TouchableRipple, useTheme } from "react-nat
 import { ScaledSheet } from "react-native-size-matters";
 import { baseStyles } from "../base-styles";
 import { Task } from "@/interfaces/task";
+import { router } from "expo-router";
 
 export default function TaskReminder(props: {
   size: "big" | "small";
@@ -87,7 +88,12 @@ export default function TaskReminder(props: {
           }}
         >
           <DateWithIcon date={props.task.date} />
-          <Button mode="elevated">Ver tarea</Button>
+          <Button mode="elevated" onPress={() => router.navigate({
+            pathname: "/tasks/[id]",
+            params: {
+              id: props.task.id
+            }
+          })}>Ver tarea</Button>
         </View>
       </View>
     </TouchableRipple>
