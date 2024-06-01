@@ -89,19 +89,6 @@ export default function AddTodo() {
               textAlign: "left",
             }}
           />
-          <List.Item
-            style={{
-              backgroundColor: theme.colors.backdrop,
-              borderRadius: theme.roundness,
-              borderColor: theme.colors.outline,
-              borderWidth: 1,
-              padding: 10,
-              marginBottom: 10,
-            }}
-            left={() => <List.Icon icon="account" />}
-            title={"Autor"}
-            description={user?.username}
-          />
           <Button mode="outlined" contentStyle={{ justifyContent: "flex-start" }} icon="calendar" style={{
             marginTop: 30,
             paddingVertical: 10,
