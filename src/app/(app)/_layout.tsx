@@ -87,7 +87,7 @@ export default function Layout() {
           }}
         />
         <Tabs.Screen
-          name="add-todo"
+          name="add-task"
           options={{
             title: "",
             tabBarHideOnKeyboard: true,
@@ -117,7 +117,7 @@ export default function Layout() {
           }}
         />
         <Tabs.Screen
-          name="todo-list"
+          name="task-list"
           options={{
             title: "Mis tareas",
             tabBarLabel(props) {
