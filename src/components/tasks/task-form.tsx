@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { taskSchema } from "./schema";
-import { Button, Text } from "react-native-paper";
+import { Button, HelperText, Text } from "react-native-paper";
 import MarginLayout from "./margin-layout";
 import { View, ScrollView } from "react-native";
 import { baseStyles } from "../base-styles";
@@ -33,133 +33,137 @@ export default function TaskForm(props: TaskFormProps) {
     defaultValues: {
       title: "",
       description: "",
-      author: user?.username,
       date: new Date(),
     },
     shouldUnregister: false,
     resolver: zodResolver(taskSchema),
   });
 
-  const { control, watch, handleSubmit, getValues, setValue, getFieldState } = form;
-
+  const { control, watch, handleSubmit, setValue, getFieldState } = form;
   useEffect(() => {
-    console.log("cambiando valores por defecto", props.getValues());
     const task = props.getValues();
     if (task) {
-      console.log(task);
       setValue("title", task.title, { shouldDirty: true });
       setValue("description", task.description, { shouldDirty: true });
       setValue("date", task.date, { shouldDirty: true });
     }
   }, [props.getValues]);
 
+  const onPress = handleSubmit(() => {
+    props.onSubmit({ 
+      ...form.getValues(),
+      author: user?.username ?? "Anónimo",
+    });
+    router.replace("/(app)");
+  });
+
   return (
-    <FormProvider {...form}>
-      <MarginLayout>
-        <View
-          style={{
-            padding: 10,
-            flex: 1,
+    <MarginLayout>
+      <View
+        style={{
+          padding: 10,
+          flex: 1,
+        }}
+      >
+        <Text
+          variant="titleLarge"
+          style={[baseStyles.baseText, baseStyles.heading]}
+        >
+          {props.titleText}
+        </Text>
+        <Text
+          variant="displayLarge"
+          style={[
+            baseStyles.baseText,
+            baseStyles.subheading,
+            {
+              lineHeight: 30,
+            },
+          ]}
+        >
+          {props.subtitleText}
+        </Text>
+        <ScrollView
+          contentContainerStyle={{
+            marginTop: 38,
+            paddingHorizontal: 10,
+            height: "95%",
+            justifyContent: "flex-start",
           }}
         >
-          <Text
-            variant="titleLarge"
-            style={[baseStyles.baseText, baseStyles.heading]}
-          >
-            {props.titleText}
-          </Text>
-          <Text
-            variant="displayLarge"
-            style={[
-              baseStyles.baseText,
-              baseStyles.subheading,
-              {
-                lineHeight: 30,
+          <InputController
+            name={"title"}
+            control={control}
+            inputProps={{
+              value: watch("title"),
+              mode: "outlined",
+              label: "Título",
+            }}
+          />
+          <InputController
+            name="description"
+            control={control}
+            inputProps={{
+              style: {
+                height: 100,
               },
-            ]}
+              multiline: true,
+              value: watch("description"),
+              mode: "outlined",
+              label: "Descripción",
+              textAlignVertical: "bottom",
+              textAlign: "left",
+            }}
+          />
+          <Button
+            mode="outlined"
+            contentStyle={{ justifyContent: "flex-start" }}
+            icon="calendar"
+            style={{
+              marginTop: 30,
+              paddingVertical: 10,
+              borderRadius: 10,
+            }}
+            onPress={() => setVisible(true)}
           >
-            {props.subtitleText}
-          </Text>
-          <ScrollView
-            contentContainerStyle={{
-              marginTop: 38,
+            {getFieldState("date").isDirty
+              ? watch("date")?.toLocaleDateString()
+              : "Selecciona una fecha"}
+          </Button>
+          <DatePickerModal
+            onDismiss={() => setVisible(false)}
+            date={watch("date") ?? new Date()}
+            visible={visible}
+            locale="es"
+            label="Fecha de la tarea"
+            onConfirm={({ date }) => {
+              setValue("date", date ?? new Date(), {
+                shouldDirty: true,
+              });
+              setVisible(false);
+            }}
+            mode={"single"}
+          />
+          <HelperText  type="error" visible={!!getFieldState("date").error}>
+            {getFieldState("date").error?.message}
+          </HelperText>
+          <Button
+            mode="outlined"
+            style={{
+              marginTop: "auto",
+              marginBottom: 50,
               paddingHorizontal: 10,
-              height: "95%",
-              justifyContent: "flex-start",
+              paddingVertical: 3,
+              width: "100%",
+            }}
+            onPress={() => {
+              onPress();
             }}
           >
-            <InputController
-              name={"title"}
-              control={control}
-              inputProps={{
-                value: watch('title'),
-                mode: "outlined",
-                label: "Título",
-              }}
-            />
-            <InputController
-              name="description"
-              control={control}
-              inputProps={{
-                style: {
-                  height: 100,
-                },
-                multiline: true,
-                value: watch('description'),
-                mode: "outlined",
-                label: "Descripción",
-                textAlignVertical: "bottom",
-                textAlign: "left",
-              }}
-            />
-            <Button
-              mode="outlined"
-              contentStyle={{ justifyContent: "flex-start" }}
-              icon="calendar"
-              style={{
-                marginTop: 30,
-                paddingVertical: 10,
-                borderRadius: 10,
-              }}
-              onPress={() => setVisible(true)}
-            >
-              {getFieldState("date").isDirty
-                ? watch('date')?.toLocaleDateString()
-                : "Selecciona una fecha"}
-            </Button>
-            <DatePickerModal
-              onDismiss={() => setVisible(false)}
-              date={watch('date') ?? new Date()}
-              visible={visible}
-              locale="es"
-              label="Fecha de la tarea"
-              onConfirm={({ date }) => {
-                setValue("date", date ?? new Date(), {
-                  shouldDirty: true,
-                });
-                setVisible(false);
-              }}
-              mode={"single"}
-            />
-            <Button
-              mode="outlined"
-              style={{
-                marginTop: "auto",
-                marginBottom: 50,
-                paddingHorizontal: 10,
-                paddingVertical: 3,
-                width: "100%",
-              }}
-              onPress={handleSubmit((fields) => {
-                props.onSubmit(fields);
-                router.replace("/(app)");
-              })}
-            >
-              {props.buttonText}
-            </Button>
-          </ScrollView>
-        </View>
-      </MarginLayout>
-    </FormProvider>
+            {props.buttonText}
+          </Button>
+        </ScrollView>
+      </View>
+    </MarginLayout>
   );
 }
