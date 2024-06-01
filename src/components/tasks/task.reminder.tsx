@@ -24,10 +24,12 @@ export default function TaskReminder(props: {
         style.hero,
         {
           minHeight: props.size === "big" ? 240 : 200,
+          maxHeight: "100%",
           width: props.size === "big" ? "96%" : "96%",
           backgroundColor,
           alignSelf: "center",
         },
+        props.size == "big" && { maxWidth: 400 }
       ]}
     >
       <View
@@ -47,13 +49,15 @@ export default function TaskReminder(props: {
             }}
           >
             <Text
+              numberOfLines={2}
               variant="bodyLarge"
               style={[
                 baseStyles.baseText,
                 style.heroText,
                 {
+                  maxWidth: "50%",
                   color: foregroundColor,
-                  fontSize: props.size == "big" ? 30 : 20,
+                  fontSize: props.size == "big" ? 25 : 20,
                   lineHeight: 30,
                 },
               ]}
@@ -140,11 +144,10 @@ export function DateWithIcon(props: { date: Date }) {
 
 const style = ScaledSheet.create({
   hero: {
-    height: 200,
     marginTop: 20,
+    maxWidth: 385,
     marginHorizontal: 10,
     borderRadius: 20,
-    backgroundColor: "red",
   },
   heroText: {
     fontWeight: 800,

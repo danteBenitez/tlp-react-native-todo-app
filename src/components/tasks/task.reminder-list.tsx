@@ -4,7 +4,7 @@ import { Text } from "react-native-paper";
 import { useTasks } from "@/hooks/use-tasks";
 
 export default function TaskReminderList() {
-  const { tasks }= useTasks();
+  const { tasks } = useTasks();
   return (
     <View>
       <TaskReminder
@@ -31,7 +31,8 @@ export default function TaskReminderList() {
           <FlatList
             contentContainerStyle={{
               flexDirection: "row",
-              alignItems: "center",
+              justifyContent: "center",
+              alignItems: "stretch",
             }}
             data={tasks.slice(1)}
             renderItem={({ item }) => (
