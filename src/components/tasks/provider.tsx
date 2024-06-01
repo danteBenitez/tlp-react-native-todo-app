@@ -67,7 +67,11 @@ export default function TaskContextProvider(props: { children: ReactNode }) {
   };
 
   const editTask = (taskId: number, newTask: Task) => {
-    setTasks(tasks.map((task) => (task.id === taskId ? newTask : task)));
+    setTasks(
+      tasks.map((task) =>
+        task.id === taskId ? { ...newTask, id: taskId } : task
+      )
+    );
   };
 
   return (
