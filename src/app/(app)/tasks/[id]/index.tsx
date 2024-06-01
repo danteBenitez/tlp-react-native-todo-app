@@ -3,9 +3,8 @@ import MarginLayout from "@/components/tasks/margin-layout";
 import { useTasks } from "@/hooks/use-tasks";
 import { Redirect, router, useLocalSearchParams } from "expo-router";
 import { ReactNode } from "react";
-import { Task } from "@/interfaces/task";
 import { View } from "react-native";
-import { Icon, List, Modal, Portal, Text, useTheme } from "react-native-paper";
+import { FAB, Icon, List, Text, useTheme } from "react-native-paper";
 import { ScaledSheet } from "react-native-size-matters";
 
 export default function TaskDetails() {
@@ -69,6 +68,28 @@ export default function TaskDetails() {
           <ListItem icon="calendar" title={task.date.toDateString()} />
         </TextWithLabel>
       </View>
+
+      <FAB
+        style={{
+          width: 70,
+          height: 70,
+          position: "absolute",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: 16,
+          right: 10,
+          bottom: 30,
+        }}
+        icon="pencil"
+        onPress={() => {
+          router.navigate({
+            pathname: `/tasks/[id]/edit`,
+            params: {
+              id: taskId,
+            }
+          });
+        }}
+      />
     </MarginLayout>
   );
 }
