@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, ViewStyle } from "react-native";
 import {
   Avatar,
   Button,
@@ -15,6 +15,8 @@ import { router } from "expo-router";
 export default function TaskReminder(props: {
   size: "big" | "small";
   task: Task;
+  heroStyle?: ViewStyle
+  footerStyle?: ViewStyle
 }) {
   const theme = useTheme();
   const { primary: backgroundColor, onPrimary: foregroundColor } = theme.colors;
@@ -29,15 +31,16 @@ export default function TaskReminder(props: {
           backgroundColor,
           alignSelf: "center",
         },
-        props.size == "big" && { maxWidth: 400 }
+        props.size == "big" && { maxWidth: 400 },
+        props.heroStyle
       ]}
     >
       <View
-        style={{
+        style={[{
           flex: 1,
           paddingHorizontal: 5,
           justifyContent: "space-between",
-        }}
+        }, props.footerStyle]}
       >
         <View>
           <View

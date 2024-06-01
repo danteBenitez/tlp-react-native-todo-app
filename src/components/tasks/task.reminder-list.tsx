@@ -37,6 +37,8 @@ export default function TaskReminderList() {
             data={tasks.slice(1)}
             renderItem={({ item }) => (
               <TaskReminder
+                heroStyle={{ height: 235, paddingBottom: 20 }}
+                footerStyle={{ marginTop: "auto" }}
                 size={"small"}
                 task={item}
               />
