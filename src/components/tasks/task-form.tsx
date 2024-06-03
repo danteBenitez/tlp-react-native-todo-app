@@ -67,7 +67,10 @@ export default function TaskForm(props: TaskFormProps) {
       >
         <Text
           variant="titleLarge"
-          style={[baseStyles.baseText, baseStyles.heading]}
+          style={[baseStyles.baseText, baseStyles.heading, {
+            lineHeight: 30,
+          }
+          ]}
         >
           {props.titleText}
         </Text>
