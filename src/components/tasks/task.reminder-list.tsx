@@ -2,14 +2,16 @@ import { FlatList, ScrollView, View } from "react-native";
 import TaskReminder from "./task.reminder";
 import { Text } from "react-native-paper";
 import { useTasks } from "@/hooks/use-tasks";
+import { diff, fromToday } from "@/utils/date";
 
 export default function TaskReminderList() {
   const { tasks } = useTasks();
+  const byRecent = [...tasks].sort((a, b) => fromToday(b.date) - fromToday(a.date));
   return (
     <View>
       <TaskReminder
         size={"big"}
-        task={tasks[0]}
+        task={byRecent[0]}
       />
       <View style={{}}>
         <Text
@@ -34,7 +36,7 @@ export default function TaskReminderList() {
               justifyContent: "center",
               alignItems: "stretch",
             }}
-            data={tasks.slice(1)}
+            data={byRecent.slice(1)}
             renderItem={({ item }) => (
               <TaskReminder
                 heroStyle={{ height: 235, paddingBottom: 20 }}

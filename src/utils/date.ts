@@ -1,9 +1,20 @@
 import dayjs from 'dayjs';
+import isTomorrowPlugin from 'dayjs/plugin/isTomorrow';
+import isTodayPlugin from 'dayjs/plugin/isToday';
 
-export function isTomorrow(date: Date)  {
-    return dayjs().add(1, "day").diff(date, "hours") < 24;
+dayjs.extend(isTomorrowPlugin);
+dayjs.extend(isTodayPlugin)
+
+export function isTomorrow(date: Date) {
+    return dayjs(date).isTomorrow();
+}
+export function isToday(date: Date) {
+    return dayjs(date).isToday();
+}
+export function diff(a: Date, b: Date) {
+    return dayjs(a).diff(b, "milliseconds");
 }
 
-export function isToday(date: Date) {
-    return dayjs().diff(date, "hours") < 24;
+export function fromToday(date: Date) {
+    return diff(date, dayjs().toDate());
 }

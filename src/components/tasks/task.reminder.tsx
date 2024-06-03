@@ -45,7 +45,7 @@ export default function TaskReminder(props: {
         <View>
           <View
             style={{
-              marginTop: props.size == "big" ? 20 : 3,
+              marginTop: props.size == "big" ? 10 : "auto",
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
