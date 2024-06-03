@@ -2,8 +2,9 @@ import { baseStyles } from "@/components/base-styles";
 import MarginLayout from "@/components/tasks/margin-layout";
 import { useAuth } from "@/hooks/use-auth";
 import { List, Switch, Text, useTheme } from "react-native-paper";
-import { ScrollView, View, useColorScheme } from "react-native";
+import { ScrollView, View } from "react-native";
 import { usePreferences } from "@/hooks/use-preferences";
+import { router } from "expo-router";
 
 export default function Settings() {
   const { preferences, toggleDarkMode } = usePreferences();
@@ -85,6 +86,7 @@ export default function Settings() {
               )}
               onPress={() => {
                 logout();
+                router.navigate("/auth");
               }}
             />
           </List.Section>
