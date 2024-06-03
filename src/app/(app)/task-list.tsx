@@ -51,6 +51,7 @@ export default function TodoList() {
                     {
                       fontWeight: 800,
                       marginTop: 0,
+                      fontSize: 20
                     },
                   ]}
                 >
