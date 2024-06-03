@@ -2,6 +2,7 @@ import { baseStyles } from "@/components/base-styles";
 import TaskReminder from "@/components/tasks/task.reminder";
 import { useTasks } from "@/hooks/use-tasks";
 import { Task } from "@/interfaces/task";
+import { isToday, isTomorrow } from "@/utils/date";
 import { SectionList, View } from "react-native";
 import { List, Text } from "react-native-paper";
 import { ScaledSheet } from "react-native-size-matters";
@@ -9,10 +10,10 @@ import { ScaledSheet } from "react-native-size-matters";
 export default function TodoList() {
   const { tasks } = useTasks();
   const forToday = tasks.filter(
-    (task) => task.date.getTime() === new Date().getTime()
+    (task) => isToday(task.date)
   );
   const forTomorrow = tasks.filter(
-    (task) => task.date.getTime() === new Date().getTime() + 1
+    (task) => isTomorrow(task.date)
   );
   const sections = [
     {
