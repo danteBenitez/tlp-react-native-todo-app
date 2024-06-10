@@ -1,11 +1,11 @@
 import Form from "@/components/form";
+import InputController from "@/components/input-controller";
+import { useAuth } from "@/hooks/use-auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, router } from "expo-router";
 import { useForm } from "react-hook-form";
 import { Button, Text, useTheme } from "react-native-paper";
 import { loginSchema } from "./_auth.schema";
-import InputController from "@/components/input-controller";
-import { useAuth } from "@/hooks/use-auth";
 
 export default function AuthIndex() {
   const theme = useTheme();
@@ -14,7 +14,7 @@ export default function AuthIndex() {
       username: "",
       password: "",
     },
-    resolver: zodResolver(loginSchema)
+    resolver: zodResolver(loginSchema),
   });
   const { signIn } = useAuth()!;
 
@@ -57,7 +57,7 @@ export default function AuthIndex() {
           inputProps={{
             mode: "outlined",
             label: "Usuario",
-          }} 
+          }}
         />
         <InputController
           name="password"
@@ -66,7 +66,7 @@ export default function AuthIndex() {
             mode: "outlined",
             label: "Contraseña",
             secureTextEntry: true,
-          }} 
+          }}
         />
         <Button
           mode="contained"
@@ -77,9 +77,16 @@ export default function AuthIndex() {
             width: "100%",
             backgroundColor: theme.colors.primary,
           }}
-          onPress={handleSubmit(fields => {
-            signIn(fields);
-            router.replace('/(app)');
+          onPress={handleSubmit(async (fields) => {
+            try {
+              await signIn(fields);
+            } catch (err) {
+              if (err instanceof Error) {
+                alert(err.message);
+              }
+              return;
+            }
+            router.replace("/(app)");
           })}
         >
           Iniciar sesión
@@ -88,4 +95,3 @@ export default function AuthIndex() {
     </>
   );
 }
-

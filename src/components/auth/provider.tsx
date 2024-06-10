@@ -30,6 +30,7 @@ export function AuthProvider(props: { children: ReactNode }) {
             username: auth.username,
             password: auth.password
         });
+        console.log("Result: ", result)
         if (!result) {
             throw new Error("Invalid credentials");
         }
