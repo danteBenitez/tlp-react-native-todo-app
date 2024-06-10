@@ -1,6 +1,6 @@
 import { Tabs, router, useRouter } from "expo-router";
 import { BottomTabHeaderProps } from "@react-navigation/bottom-tabs";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import {
   Appbar,
   Icon,
@@ -91,28 +91,37 @@ export default function Layout() {
           options={{
             title: "",
             tabBarHideOnKeyboard: true,
+            tabBarButton: (props) => (
+              <View
+                style={[
+                ]}
+              >
+                {props.children}
+              </View>
+            ),
             tabBarIcon: ({ size }) => (
-                <Surface
-                  elevation={4}
-                  style={{
-                    backgroundColor: theme.colors.primary,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "auto",
-                    width: "50%",
-                    height: "120%",
-                    borderRadius: 100,
-                    zIndex: 100,
-                    marginBottom: 5,
-                  }}
-                >
-                  <Icon
-                    source={"plus"}
-                    color={theme.colors.onPrimary}
-                    size={size}
-                    theme={theme}
-                  />
-                </Surface>
+              <Surface
+                elevation={4}
+                style={{
+                  backgroundColor: theme.colors.primary,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: 20,
+                  width: Platform.OS !== "web" ? "100%" : "auto",
+                  height: "120%",
+                  aspectRatio: 1,
+                  borderRadius: 100,
+                  zIndex: 100,
+                  marginBottom: 5,
+                }}
+              >
+                <Icon
+                  source={"plus"}
+                  color={theme.colors.onPrimary}
+                  size={size}
+                  theme={theme}
+                />
+              </Surface>
             ),
           }}
         />
@@ -142,9 +151,12 @@ export default function Layout() {
             ),
           }}
         />
-        <Tabs.Screen name="tasks" options={{
-          href: null
-        }} />
+        <Tabs.Screen
+          name="tasks"
+          options={{
+            href: null,
+          }}
+        />
       </Tabs>
     </TaskContextProvider>
   );
