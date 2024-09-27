@@ -1,3 +1,5 @@
+import { Task } from "@/interfaces/task";
+import { router } from "expo-router";
 import { View, ViewStyle } from "react-native";
 import {
   Avatar,
@@ -7,19 +9,50 @@ import {
   TouchableRipple,
   useTheme,
 } from "react-native-paper";
+import { withSpring } from "react-native-reanimated";
 import { ScaledSheet } from "react-native-size-matters";
 import { baseStyles } from "../base-styles";
-import { Task } from "@/interfaces/task";
-import { router } from "expo-router";
+withSpring;
 
 export default function TaskReminder(props: {
   size: "big" | "small";
   task: Task;
-  heroStyle?: ViewStyle
-  footerStyle?: ViewStyle
+  heroStyle?: ViewStyle;
+  footerStyle?: ViewStyle;
 }) {
   const theme = useTheme();
   const { primary: backgroundColor, onPrimary: foregroundColor } = theme.colors;
+
+  if (!props.task) {
+    return (
+      <TouchableRipple
+        style={[
+          style.hero,
+          {
+            minHeight: props.size === "big" ? 240 : 200,
+            maxHeight: "100%",
+            width: props.size === "big" ? "96%" : "96%",
+            backgroundColor,
+            alignSelf: "center",
+          },
+          props.size == "big" && { maxWidth: 400 },
+          props.heroStyle,
+        ]}
+      >
+        <View
+          style={[
+            {
+              flex: 1,
+              paddingHorizontal: 5,
+              justifyContent: "space-between",
+            },
+            props.footerStyle,
+          ]}
+        ></View>
+      </TouchableRipple>
+    );
+  }
+
   return (
     <TouchableRipple
       style={[
@@ -32,15 +65,18 @@ export default function TaskReminder(props: {
           alignSelf: "center",
         },
         props.size == "big" && { maxWidth: 400 },
-        props.heroStyle
+        props.heroStyle,
       ]}
     >
       <View
-        style={[{
-          flex: 1,
-          paddingHorizontal: 5,
-          justifyContent: "space-between",
-        }, props.footerStyle]}
+        style={[
+          {
+            flex: 1,
+            paddingHorizontal: 5,
+            justifyContent: "space-between",
+          },
+          props.footerStyle,
+        ]}
       >
         <View>
           <View

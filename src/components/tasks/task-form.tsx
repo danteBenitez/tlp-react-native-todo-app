@@ -1,20 +1,20 @@
 import { useAuth } from "@/hooks/use-auth";
 import { Task } from "@/interfaces/task";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import { taskSchema } from "./schema";
-import { Button, HelperText, Text } from "react-native-paper";
-import MarginLayout from "./margin-layout";
-import { View, ScrollView } from "react-native";
-import { baseStyles } from "../base-styles";
-import InputController from "../input-controller";
 import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { ScrollView, View } from "react-native";
+import { Button, HelperText, Text } from "react-native-paper";
 import {
   DatePickerModal,
   es,
   registerTranslation,
 } from "react-native-paper-dates";
+import { baseStyles } from "../base-styles";
+import InputController from "../input-controller";
+import MarginLayout from "./margin-layout";
+import { taskSchema } from "./schema";
 
 registerTranslation("es", es);
 
@@ -40,6 +40,8 @@ export default function TaskForm(props: TaskFormProps) {
   });
 
   const { control, watch, handleSubmit, setValue, getFieldState } = form;
+
+  console.log(props.getValues());
   useEffect(() => {
     const task = props.getValues();
     if (task) {
@@ -50,7 +52,7 @@ export default function TaskForm(props: TaskFormProps) {
   }, [props.getValues]);
 
   const onPress = handleSubmit(() => {
-    props.onSubmit({ 
+    props.onSubmit({
       ...form.getValues(),
       author: user?.username ?? "Anónimo",
     });
@@ -67,9 +69,12 @@ export default function TaskForm(props: TaskFormProps) {
       >
         <Text
           variant="titleLarge"
-          style={[baseStyles.baseText, baseStyles.heading, {
-            lineHeight: 30,
-          }
+          style={[
+            baseStyles.baseText,
+            baseStyles.heading,
+            {
+              lineHeight: 30,
+            },
           ]}
         >
           {props.titleText}
@@ -147,7 +152,7 @@ export default function TaskForm(props: TaskFormProps) {
             }}
             mode={"single"}
           />
-          <HelperText  type="error" visible={!!getFieldState("date").error}>
+          <HelperText type="error" visible={!!getFieldState("date").error}>
             {getFieldState("date").error?.message}
           </HelperText>
           <Button

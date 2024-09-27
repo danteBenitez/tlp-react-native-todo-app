@@ -1,6 +1,8 @@
+import { TASK_ACTION_TYPES } from "@/app/slices/tasks/types";
+import { AppState } from "@/interfaces/app-state";
 import { Task } from "@/interfaces/task";
-import { Serialized } from "@/interfaces/serialized";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 type TaskContextValue = {
   tasks: Task[];
@@ -9,32 +11,22 @@ type TaskContextValue = {
   editTask: (taskId: number, newTask: Task) => void;
 };
 
-const DEFAULT_TASKS: Task[] = require('./tasks.json').map((json: Serialized<Task>) => {
-  return {
-    ...json,
-    date: new Date(json.date),
-  }
-});
-
 export const TaskContext = createContext<TaskContextValue | null>(null);
 
 export default function TaskContextProvider(props: { children: ReactNode }) {
-  const [tasks, setTasks] = useState<Task[]>(DEFAULT_TASKS);
+  const dispatch = useDispatch();
+  const tasks = useSelector<AppState, Task[]>((state) => state.taskList.tasks);
 
   const addTask = (task: Task) => {
-    setTasks([...tasks, task]);
+    dispatch({ type: TASK_ACTION_TYPES.ADD_TASK, task });
   };
 
   const removeTask = (taskId: number) => {
-    setTasks(tasks.filter((task) => task.id !== taskId));
+    dispatch({ type: TASK_ACTION_TYPES.REMOVE_TASK, taskId });
   };
 
   const editTask = (taskId: number, newTask: Task) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId ? { ...newTask, id: taskId } : task
-      )
-    );
+    dispatch({ type: TASK_ACTION_TYPES.EDIT_TASK, taskId, newTask });
   };
 
   return (
